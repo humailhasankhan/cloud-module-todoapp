@@ -9,27 +9,7 @@ const PORT = process.env.PORT || 5050;
 app.use(cors());
 app.use(express.json());
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client/build")));
-}
-
 //ROUTES
-
-//create a todo
-
-app.post("/todos", async (req, res) => {
-  try {
-    const { description } = req.body;
-    const newTodo = await pool.query(
-      "INSERT INTO todo (description) VALUES($1) RETURNING *",
-      [description]
-    );
-
-    res.json(newTodo.rows[0]);
-  } catch (err) {
-    console.error(err.message);
-  }
-});
 
 //get all todos
 
@@ -51,6 +31,22 @@ app.get("/todos/:id", async (req, res) => {
       id,
     ]);
     res.json(todo.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+//create a todo
+
+app.post("/todos", async (req, res) => {
+  try {
+    const { description } = req.body;
+    const newTodo = await pool.query(
+      "INSERT INTO todo (description) VALUES($1) RETURNING *",
+      [description]
+    );
+
+    res.json(newTodo.rows[0]);
   } catch (err) {
     console.error(err.message);
   }
@@ -90,6 +86,10 @@ app.delete("/todos/:id", async (req, res) => {
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "client/build/index.html"));
 });
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+}
 
 app.listen(PORT, () => {
   console.log(`

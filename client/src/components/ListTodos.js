@@ -22,15 +22,12 @@ const ListTodos = () => {
     try {
       const response = await fetch("/todos", {
         headers: {
-          mode: "CORS",
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-      })
-        .then((res) => res.json())
-        .then((data) => setTodos(data));
-      // const jsonData = await response.json();
-      // setTodos(jsonData);
+      });
+      const jsonData = await response.json();
+      setTodos(jsonData);
     } catch (error) {
       console.error(error.message);
     }

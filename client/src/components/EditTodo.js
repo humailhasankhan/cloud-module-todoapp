@@ -10,8 +10,7 @@ const EditTodo = ({ todo }) => {
     try {
       const body = { description };
       const response = await fetch(
-        `
-/todos/${todo.todo_id}`,
+        `https://humailkhan-full-stack-todo-app.herokuapp.com/todos/${todo.todo_id}`,
         {
           method: "PUT",
           headers: {

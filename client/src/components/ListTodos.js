@@ -23,7 +23,6 @@ const ListTodos = () => {
       const response = await fetch("/todos", {
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
         },
       });
       const jsonData = await response.json();

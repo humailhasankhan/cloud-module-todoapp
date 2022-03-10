@@ -9,15 +9,19 @@ const PORT = process.env.PORT || 5050;
 app.use(cors());
 app.use(express.json());
 
+app.use(express.static(path.join(__dirname, "client", "build")));
+// required to serve SPA on heroku production without routing problems; it will skip only 'api' calls
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client/build")));
+  app.get(/^((?!(api)).)*$/, (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build", "index.html"));
+  });
 }
 
 //ROUTES
 
 //get all Todos
 
-app.get("/todos", async (req, res) => {
+app.get("/api/todos", async (req, res) => {
   try {
     const allTodos = await pool.query("SELECT * FROM todo");
 
@@ -29,7 +33,7 @@ app.get("/todos", async (req, res) => {
 
 //get a todo
 
-app.get("/todos/:id", async (req, res) => {
+app.get("/api/todos/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const todo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", [
@@ -43,7 +47,7 @@ app.get("/todos/:id", async (req, res) => {
 
 //create a todo
 
-app.post("/todos", async (req, res) => {
+app.post("/api/todos", async (req, res) => {
   try {
     console.log(req.body);
     const { description } = req.body;
@@ -60,7 +64,7 @@ app.post("/todos", async (req, res) => {
 
 //update a todo
 
-app.put("/todos/:id", async (req, res) => {
+app.put("/api/todos/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { description } = req.body;
@@ -77,7 +81,7 @@ app.put("/todos/:id", async (req, res) => {
 
 //delete a todo
 
-app.delete("/todos/:id", async (req, res) => {
+app.delete("/api/todos/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const deleteTodo = await pool.query("DELETE FROM todo WHERE todo_id = $1", [
@@ -89,9 +93,9 @@ app.delete("/todos/:id", async (req, res) => {
   }
 });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/build/index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "client/build/index.html"));
+// });
 
 app.listen(PORT, () => {
   console.log(`Server is starting on port ${PORT}`);

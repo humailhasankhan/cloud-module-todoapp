@@ -8,7 +8,7 @@ const ListTodos = () => {
 
   async function deleteTodo(id) {
     try {
-      const res = await fetch(`/todos/${id}`, {
+      const res = await fetch(`/api/todos/${id}`, {
         method: "DELETE",
       });
 
@@ -19,7 +19,7 @@ const ListTodos = () => {
   }
 
   async function getTodos() {
-    const res = await fetch("/todos");
+    const res = await fetch("/api/todos");
 
     const todoArray = await res.json();
 
@@ -44,12 +44,6 @@ const ListTodos = () => {
           </tr>
         </thead>
         <tbody>
-          {/*<tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-          </tr> */}
-
           {todos.map((todo) => (
             <tr key={todo.todo_id}>
               <td>{todo.description}</td>

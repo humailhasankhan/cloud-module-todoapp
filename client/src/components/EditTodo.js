@@ -5,7 +5,7 @@ const EditTodo = ({ todo }) => {
     try {
       const body = { description };
 
-      const res = await fetch(`/todos/${id}`, {
+      const res = await fetch(`/api/todos/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

@@ -8,13 +8,16 @@ const ListTodos = () => {
 
   const deleteTodo = async (id) => {
     try {
-      const deleteTodo = await fetch(`/todos/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
+      const deleteTodo = await fetch(
+        `https://humailkhan-full-stack-todo-app.herokuapp.com/todos/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
 
       setTodos(todos.filter((todo) => todo.todo_id !== id));
     } catch (error) {
@@ -24,12 +27,15 @@ const ListTodos = () => {
 
   const getTodos = async () => {
     try {
-      const response = await fetch("/todos", {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
+      const response = await fetch(
+        "https://humailkhan-full-stack-todo-app.herokuapp.com/todos",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
       const jsonData = await response.json();
       setTodos(jsonData);
     } catch (error) {

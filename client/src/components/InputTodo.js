@@ -7,30 +7,25 @@ const InputTodo = () => {
     e.preventDefault();
     try {
       const body = { description };
-      const response = await fetch(
-        "https://humailkhan-full-stack-todo-app.herokuapp.com/todos",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(body),
-        }
-      );
+
+      const response = await fetch("/todos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
 
       window.location = "/";
-    } catch (error) {
-      console.error(error.message);
+    } catch (err) {
+      console.error(err.message);
     }
   };
-
   return (
     <Fragment>
-      <h1 className="text-center mt-5">Todo List</h1>
-      <form className="d-flex mt-5" onSubmit={onSubmitForm}>
+      <h1 className="text-center my-5">Input Todo</h1>
+      <form className="d-flex" onSubmit={onSubmitForm}>
         <input
           type="text"
+          placeholder="add todo"
           className="form-control"
           value={description}
           onChange={(e) => setDescription(e.target.value)}

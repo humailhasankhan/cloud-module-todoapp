@@ -6,48 +6,36 @@ const ListTodos = () => {
 
   //delete todo function
 
-  const deleteTodo = async (id) => {
+  async function deleteTodo(id) {
     try {
-      const deleteTodo = await fetch(
-        `https://humailkhan-full-stack-todo-app.herokuapp.com/todos/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const res = await fetch(`/todos/${id}`, {
+        method: "DELETE",
+      });
 
       setTodos(todos.filter((todo) => todo.todo_id !== id));
-    } catch (error) {
-      console.error(error.message);
+    } catch (err) {
+      console.error(err.message);
     }
-  };
+  }
 
-  const getTodos = async () => {
-    try {
-      const response = await fetch(
-        "https://humailkhan-full-stack-todo-app.herokuapp.com/todos",
-        {
-          method: "GET",
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
-      const jsonData = await response.json();
-      setTodos(jsonData);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+  async function getTodos() {
+    const res = await fetch("/todos");
+
+    const todoArray = await res.json();
+
+    setTodos(todoArray);
+  }
 
   useEffect(() => {
     getTodos();
   }, []);
 
+  console.log(todos);
+
   return (
     <Fragment>
-      <table className="table mt-5 text-center">
+      {" "}
+      <table class="table mt-5">
         <thead>
           <tr>
             <th>Description</th>
@@ -56,6 +44,12 @@ const ListTodos = () => {
           </tr>
         </thead>
         <tbody>
+          {/*<tr>
+            <td>John</td>
+            <td>Doe</td>
+            <td>john@example.com</td>
+          </tr> */}
+
           {todos.map((todo) => (
             <tr key={todo.todo_id}>
               <td>{todo.description}</td>

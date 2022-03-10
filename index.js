@@ -10,9 +10,12 @@ app.use(cors());
 app.use(express.json());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client/build")));
+  app.use(express.static("client/build"));
 }
 
+app.use(authRoutes);
+app.use(userRoutes);
+app.use(postRoutes);
 //ROUTES
 
 //create a todo
@@ -87,7 +90,7 @@ app.delete("/todos/:id", async (req, res) => {
   }
 });
 
-app.get("*", (req, res) => {
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "client/build/index.html"));
 });
 

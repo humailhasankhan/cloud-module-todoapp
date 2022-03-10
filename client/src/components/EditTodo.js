@@ -11,7 +11,7 @@ const EditTodo = ({ todo }) => {
       const body = { description };
       const response = await fetch(
         `
-http://localhost:5050/todos/${todo.todo_id}`,
+/todos/${todo.todo_id}`,
         {
           method: "PUT",
           headers: {

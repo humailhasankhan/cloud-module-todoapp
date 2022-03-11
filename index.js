@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5050;
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "client", "build")));
+// app.use(express.static(path.join(__dirname, "client", "build")));
 // required to serve SPA on heroku production without routing problems; it will skip only 'api' calls
 if (process.env.NODE_ENV === "production") {
   app.get(/^((?!(api)).)*$/, (req, res) => {
@@ -22,6 +22,16 @@ if (process.env.NODE_ENV === "production") {
 //get all Todos
 
 app.get("/api/todos", async (req, res) => {
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header("Access-Control-Allow-Credentials", true);
+  response.header(
+    "Access-Control-Allow-Methods",
+    "GET,PUT,POST,DELETE,OPTIONS"
+  );
+  response.header(
+    "Access-Control-Allow-Headers",
+    "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
+  );
   try {
     const allTodos = await pool.query("SELECT * FROM todo");
 
@@ -34,6 +44,13 @@ app.get("/api/todos", async (req, res) => {
 //get a todo
 
 app.get("/api/todos/:id", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
+  );
   try {
     const { id } = req.params;
     const todo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", [
@@ -48,6 +65,13 @@ app.get("/api/todos/:id", async (req, res) => {
 //create a todo
 
 app.post("/api/todos", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
+  );
   try {
     console.log(req.body);
     const { description } = req.body;
@@ -65,6 +89,13 @@ app.post("/api/todos", async (req, res) => {
 //update a todo
 
 app.put("/api/todos/:id", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
+  );
   try {
     const { id } = req.params;
     const { description } = req.body;
@@ -82,6 +113,13 @@ app.put("/api/todos/:id", async (req, res) => {
 //delete a todo
 
 app.delete("/api/todos/:id", async (req, res) => {
+  resp.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
+  );
   try {
     const { id } = req.params;
     const deleteTodo = await pool.query("DELETE FROM todo WHERE todo_id = $1", [
@@ -93,9 +131,9 @@ app.delete("/api/todos/:id", async (req, res) => {
   }
 });
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "client/build/index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build/index.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`Server is starting on port ${PORT}`);

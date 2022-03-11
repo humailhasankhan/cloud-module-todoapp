@@ -5,11 +5,14 @@ const EditTodo = ({ todo }) => {
     try {
       const body = { description };
 
-      const res = await fetch(`/api/todos/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      const res = await fetch(
+        `https://humailkhan-full-stack-todo-app.herokuapp.com/api/todos/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
 
       window.location = "/";
     } catch (err) {

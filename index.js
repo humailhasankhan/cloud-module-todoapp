@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const pool = require("./db");
+//const pool = require("./db");
 const path = require("path");
 const PORT = process.env.PORT || 5050;
 
@@ -17,12 +17,38 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
+const { Pool } = require("pg");
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  user: "yfafhtuluhddyr",
+  host: "ec2-107-20-24-247.compute-1.amazonaws.com",
+  database: "d1ftvin2b88660",
+  password: "5c15f9f72b418dcc08a617b9e3eaa40a16f79fdba30e42ab6602e85b4440ae63",
+  port: 5432,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
+
+pool.connect();
 //ROUTES
 
 //get all Todos
 
 app.get("/api/todos", async (req, res) => {
-  response.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
+  );
   try {
     const allTodos = await pool.query("SELECT * FROM todo");
 
@@ -35,7 +61,6 @@ app.get("/api/todos", async (req, res) => {
 //get a todo
 
 app.get("/api/todos/:id", async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
   try {
     const { id } = req.params;
     const todo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", [
@@ -51,6 +76,12 @@ app.get("/api/todos/:id", async (req, res) => {
 
 app.post("/api/todos", async (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
+  );
   try {
     console.log(req.body);
     const { description } = req.body;
@@ -86,7 +117,6 @@ app.put("/api/todos/:id", async (req, res) => {
 //delete a todo
 
 app.delete("/api/todos/:id", async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
   try {
     const { id } = req.params;
     const deleteTodo = await pool.query("DELETE FROM todo WHERE todo_id = $1", [

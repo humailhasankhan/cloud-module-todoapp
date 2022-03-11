@@ -26,11 +26,11 @@ const { Pool } = require("pg");
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  user: "yfafhtuluhddyr",
-  host: "ec2-107-20-24-247.compute-1.amazonaws.com",
-  database: "d1ftvin2b88660",
-  password: "5c15f9f72b418dcc08a617b9e3eaa40a16f79fdba30e42ab6602e85b4440ae63",
-  port: 5432,
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DATABASE,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT,
   ssl: {
     rejectUnauthorized: false,
   },

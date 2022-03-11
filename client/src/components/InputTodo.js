@@ -33,7 +33,7 @@ const InputTodo = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <button className="btn btn-success">Add</button>
+        <button className="btn btn-success ms-3">Add</button>
       </form>
     </Fragment>
   );

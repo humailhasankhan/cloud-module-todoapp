@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from "react";
 
 const EditTodo = ({ todo }) => {
+  const [description, setDescription] = useState(todo.description);
+
   const editText = async (id) => {
     try {
       const body = { description };
@@ -9,8 +11,9 @@ const EditTodo = ({ todo }) => {
         `https://humailkhan-full-stack-todo-app.herokuapp.com/api/todos/${id}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          mode: "cors",
           body: JSON.stringify(body),
+          headers: { "Content-Type": "application/json" },
         }
       );
 
@@ -20,37 +23,38 @@ const EditTodo = ({ todo }) => {
     }
   };
 
-  const [description, setDescription] = useState(todo.description);
   return (
     <Fragment>
       <button
         type="button"
         class="btn btn-warning"
-        data-toggle="modal"
-        data-target={`#id${todo.todo_id}`}
+        data-bs-toggle="modal"
+        data-bs-target={`#id${todo.todo_id}`}
       >
         Edit
       </button>
-      {/* id = "id21"*/}
       <div
-        class="modal"
+        class="modal fade"
         id={`id${todo.todo_id}`}
         onClick={() => setDescription(todo.description)}
+        tabindex="-1"
+        aria-labelledby="edit modal"
+        aria-hidden="true"
       >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Edit Todo</h4>
+              <h5 class="modal-title" id="exampleModalLabel">
+                Edit Todo
+              </h5>
               <button
                 type="button"
-                class="close"
-                data-dismiss="modal"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
                 onClick={() => setDescription(todo.description)}
-              >
-                &times;
-              </button>
+              ></button>
             </div>
-
             <div class="modal-body">
               <input
                 type="text"
@@ -59,12 +63,11 @@ const EditTodo = ({ todo }) => {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-
             <div class="modal-footer">
               <button
                 type="button"
                 class="btn btn-warning"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
                 onClick={() => editText(todo.todo_id)}
               >
                 Edit
@@ -72,7 +75,7 @@ const EditTodo = ({ todo }) => {
               <button
                 type="button"
                 class="btn btn-danger"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
                 onClick={() => setDescription(todo.description)}
               >
                 Close

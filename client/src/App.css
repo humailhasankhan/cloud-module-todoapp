@@ -1,16 +1,9 @@
+body {
+  margin-bottom: 60px;
+}
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
@@ -28,11 +21,32 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.footer {
+  background-image: linear-gradient(
+    to left,
+    rgba(72, 42, 42, 0),
+    rgb(46, 4, 4)
+  );
+  position: fixed;
+  height: 50px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
+}
+
+.linked-in {
+  color: #0e76a8;
+}
+
+.linked-in:hover {
+  color: #5aa5c7;
+}
+
+.git-hub {
+  color: black;
+}
+
+.git-hub:hover {
+  color: #7c7d7d;
 }

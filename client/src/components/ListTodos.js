@@ -8,16 +8,13 @@ const ListTodos = () => {
 
   async function deleteTodo(id) {
     try {
-      const res = await fetch(
-        `https://humailkhan-full-stack-todo-app.herokuapp.com/api/todos/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
+      const res = await fetch(`http://localhost:5050/api/todos/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
 
       setTodos(todos.filter((todo) => todo.todo_id !== id));
     } catch (err) {
@@ -26,18 +23,15 @@ const ListTodos = () => {
   }
 
   async function getTodos() {
-    const res = await fetch(
-      "https://humailkhan-full-stack-todo-app.herokuapp.com/api/todos",
-      {
-        mode: "cors",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods":
-            "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-        },
-      }
-    );
+    const res = await fetch("http://localhost:5050/api/todos", {
+      mode: "cors",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods":
+          "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+      },
+    });
 
     const todoArray = await res.json();
 

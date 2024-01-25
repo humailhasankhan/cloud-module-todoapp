@@ -8,14 +8,11 @@ const InputTodo = () => {
     try {
       const body = { description };
 
-      const response = await fetch(
-        "https://humailkhan-full-stack-todo-app.herokuapp.com/api/todos",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        }
-      );
+      const response = await fetch("http://localhost:5050/api/todos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
 
       window.location = "/";
     } catch (err) {

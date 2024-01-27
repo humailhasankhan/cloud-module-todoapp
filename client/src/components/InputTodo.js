@@ -8,11 +8,14 @@ const InputTodo = () => {
     try {
       const body = { description };
 
-      await fetch("http://54.145.133.252:5050/api/todos", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      await fetch(
+        "http://ec2-54-208-152-154.compute-1.amazonaws.com:5050/api/todos",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
 
       window.location = "/";
     } catch (err) {

@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="footer d-flex flex-wrap justify-content-between flex-row p-2 mt-5 border-top border-top-2 border-light">
       <div>
-        <h6 className="text-white ps-2 fw-bold m-2">© Humail Khan 2022</h6>
+        <h6 className="text-white ps-2 fw-bold m-2">© Humail Khan 2024</h6>
       </div>
       <div>
         <a

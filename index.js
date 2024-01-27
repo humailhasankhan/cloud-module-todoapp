@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "client", "build")));
-// required to serve SPA on heroku production without routing problems; it will skip only 'api' calls
+//required to serve SPA on heroku production without routing problems; it will skip only 'api' calls
 if (process.env.NODE_ENV === "production") {
   app.get(/^((?!(api)).)*$/, (req, res) => {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
@@ -34,26 +34,6 @@ const pool = new Pool({
     rejectUnauthorized: false,
   },
 });
-// if (process.env.PG_HOST === "production") {
-//   return new Pool({
-//     user: process.env.PG_USER,
-//     database: process.env.PG_DATABASE,
-//     password: process.env.PG_PASSWORD,
-//     port: process.env.PG_PORT,
-//     ssl: false,
-//   });
-// } else {
-//   return new Pool({
-//     user: process.env.PG_USER,
-//     host: process.env.PG_HOST,
-//     database: process.env.PG_DATABASE,
-//     password: process.env.PG_PASSWORD,
-//     port: process.env.PG_PORT,
-//     ssl: {
-//       rejectUnauthorized: false,
-//     },
-//   });
-// }
 
 pool.connect();
 

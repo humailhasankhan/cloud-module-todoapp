@@ -7,15 +7,12 @@ const EditTodo = ({ todo }) => {
     try {
       const body = { description };
 
-      const res = await fetch(
-        `my-db.c9swes4c41sl.us-east-1.rds.amazonaws.com/api/todos/${id}`,
-        {
-          method: "PUT",
-          mode: "cors",
-          body: JSON.stringify(body),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const res = await fetch(`http://54.145.133.252:5050/api/todos/${id}`, {
+        method: "PUT",
+        mode: "cors",
+        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json" },
+      });
 
       window.location = "/";
     } catch (err) {
@@ -27,35 +24,35 @@ const EditTodo = ({ todo }) => {
     <Fragment>
       <button
         type="button"
-        class="btn btn-warning"
+        className="btn btn-warning"
         data-bs-toggle="modal"
         data-bs-target={`#id${todo.todo_id}`}
       >
         Edit
       </button>
       <div
-        class="modal fade"
+        className="modal fade"
         id={`id${todo.todo_id}`}
         onClick={() => setDescription(todo.description)}
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="edit modal"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
                 Edit Todo
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
                 onClick={() => setDescription(todo.description)}
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <input
                 type="text"
                 className="form-control"
@@ -63,10 +60,10 @@ const EditTodo = ({ todo }) => {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-warning"
+                className="btn btn-warning"
                 data-bs-dismiss="modal"
                 onClick={() => editText(todo.todo_id)}
               >
@@ -74,7 +71,7 @@ const EditTodo = ({ todo }) => {
               </button>
               <button
                 type="button"
-                class="btn btn-danger"
+                className="btn btn-danger"
                 data-bs-dismiss="modal"
                 onClick={() => setDescription(todo.description)}
               >

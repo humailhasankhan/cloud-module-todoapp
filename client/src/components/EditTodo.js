@@ -7,12 +7,15 @@ const EditTodo = ({ todo }) => {
     try {
       const body = { description };
 
-      const res = await fetch(`http://54.145.133.252:5050/api/todos/${id}`, {
-        method: "PUT",
-        mode: "cors",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" },
-      });
+      const res = await fetch(
+        `http://ec2-54-208-152-154.compute-1.amazonaws.com:5050/api/todos/${id}`,
+        {
+          method: "PUT",
+          mode: "cors",
+          body: JSON.stringify(body),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       window.location = "/";
     } catch (err) {

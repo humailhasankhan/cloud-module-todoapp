@@ -8,7 +8,7 @@ const EditTodo = ({ todo }) => {
       const body = { description };
 
       const res = await fetch(
-        `http://ec2-54-208-152-154.compute-1.amazonaws.com:5050/api/todos/${id}`,
+        `http://ec2-44-203-162-14.compute-1.amazonaws.com:5050/api/todos/${id}`,
         {
           method: "PUT",
           mode: "cors",

@@ -25,3 +25,7 @@ jobs:
       - name: Create build
         working-directory: client
         run: npm run build
+
+      - name: Run tests
+        working-directory: client
+        run: npm test

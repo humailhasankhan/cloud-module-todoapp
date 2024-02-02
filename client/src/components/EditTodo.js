@@ -7,7 +7,7 @@ const EditTodo = ({ todo }) => {
     try {
       const body = { description };
 
-      const res = await fetch(
+      await fetch(
         `http://ec2-44-203-162-14.compute-1.amazonaws.com:5050/api/todos/${id}`,
         {
           method: "PUT",

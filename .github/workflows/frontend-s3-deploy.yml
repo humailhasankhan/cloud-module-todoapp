@@ -19,9 +19,9 @@ jobs:
         with:
           node-version: 20.x
       - name: Install dependencies
-        working-directory: ../../client
-        run: npm install
+        run: cd client  |
+          npm install
 
       - name: Create build
-        working-directory: ../../client
-        run: npm run build
+        run: cd client  |
+          npm run build

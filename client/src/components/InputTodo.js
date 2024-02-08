@@ -9,7 +9,7 @@ const InputTodo = () => {
       const body = { description };
 
       await fetch(
-        "http://ec2-44-203-162-14.compute-1.amazonaws.com:5050/api/todos",
+        "http://ec2-3-85-99-146.compute-1.amazonaws.com:5050/api/todos",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

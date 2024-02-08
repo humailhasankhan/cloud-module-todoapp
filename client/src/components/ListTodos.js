@@ -9,7 +9,7 @@ const ListTodos = () => {
   async function deleteTodo(id) {
     try {
       await fetch(
-        `http://ec2-44-203-162-14.compute-1.amazonaws.com:5050/api/todos/${id}`,
+        `http://ec2-3-85-99-146.compute-1.amazonaws.com:5050/api/todos/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -27,7 +27,7 @@ const ListTodos = () => {
 
   async function getTodos() {
     const res = await fetch(
-      "http://ec2-44-203-162-14.compute-1.amazonaws.com:5050/api/todos",
+      "http://ec2-3-85-99-146.compute-1.amazonaws.com:5050/api/todos",
       {
         mode: "cors",
         headers: {
